@@ -34,7 +34,7 @@ jobs:
           #chmod 700 get_helm.sh
           #./get_helm.sh
 
-          sudo apt-get install google-cloud-cli-gke-gcloud-auth-plugin
+          sudo apt-get update && sudo apt-get install google-cloud-cli-gke-gcloud-auth-plugin
 
 
       - name: Set the Remote proxy to access GKE cluster
