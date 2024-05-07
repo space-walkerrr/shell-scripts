@@ -18,9 +18,9 @@ jobs:
 
       - name: Install Gcloud CLI, Helm, Kubectl
         run: | 
-          echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
-          curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg
-          sudo apt-get update && sudo apt-get install google-cloud-cli
+          #echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+          #curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg
+          #sudo apt-get update && sudo apt-get install google-cloud-cli
 
 
           #curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-474.0.0-linux-x86_64.tar.gz
@@ -40,7 +40,8 @@ jobs:
       - name: Set the Remote proxy to access GKE cluster
         run: |
           mkdir -p $HOME/.kube
-          echo "apiVersion: v1
+          cat > ~/.kube/config << EOF
+            apiVersion: v1
             clusters:
             - cluster:
                 certificate-authority-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUVMRENDQXBTZ0F3SUJBZ0lRVFNleTRqb2w5dkRKbzVhT09RZE82VEFOQmdrcWhraUc5dzBCQVFzRkFEQXYKTVMwd0t3WURWUVFERXlRM01qUXdZemN3TlMxaVlqYzFMVFJoWldVdFlqa3hOeTB4TXpRMU1EVmxPVGRsWVRRdwpJQmNOTWpRd05ERTJNRGd6TnpBM1doZ1BNakExTkRBME1Ea3dPVE0zTURkYU1DOHhMVEFyQmdOVkJBTVRKRGN5Ck5EQmpOekExTFdKaU56VXROR0ZsWlMxaU9URTNMVEV6TkRVd05XVTVOMlZoTkRDQ0FhSXdEUVlKS29aSWh2Y04KQVFFQkJRQURnZ0dQQURDQ0FZb0NnZ0dCQUxhYTUvZnJZalZpTlpWR0I5Tm4xcTIxZnd6dTFFRFN3TDNsOEhKSgpwTmovdEJKUXhOSGlZUHA4dVNnbnhsM1gwazlPM3JzR0V0dURUZXRwL09jKzVDTlVNTjA1NFJPT09jQUZ3NVplClZSNnZYcWR1SU41RUo5RGlTaFJWYkZVZ0N5eDl2MHJGNTJNWG5pOE5MTFI3Q0lOSE9Xd3RtU3RJdEZVVUo1OFkKcUxFYlhva25taDM4YVRPbExXdFlLK3g0a2FTTFRYcXl2L052TU9EakVnN1NhbXBpU3JaYUVIdkhPTGM5L1pjcgo2MmtQRVZ6ZzdpREhFREszUk9GT2FQZXNEbTNRZ0tJOVA2Qmx3eS9xRjVJY1UrL0EwRFMrWFhVRTRDZjdqU2h1CkpXMDlnY3d0OFhXK2g0Y0pzK3ZpdVViaU1HWERKcS9NSUpERkJ1MDZkaXNDdXFhZ2VlTEtIdmNRSDFscVdXRTQKSHA4WVRHQmZ5M2dXZHREcUU1RjU5RWpxYkdtZ2p0NVFML0JTb3Y3Zmlkdks5L1NEUXJwb2I2MEU2OVNPM0tZbApZK2E1QnhWaG1xaUVpYTR1TzUwMjFXR3BOWHF4TmhMaVJsbXlhTGZycXM5VTRpVVY1WVVZaGlWOHBCSHQxT0txCnR0cFZGSStDbVZORGFMeFpWQWR0dmIwR3pRSURBUUFCbzBJd1FEQU9CZ05WSFE4QkFmOEVCQU1DQWdRd0R3WUQKVlIwVEFRSC9CQVV3QXdFQi96QWRCZ05WSFE0RUZnUVU5Q1RLcDE1cnRxVVc0U0F6Tk9XWFJPOUpZbGd3RFFZSgpLb1pJaHZjTkFRRUxCUUFEZ2dHQkFBMkp3R3BoZ3gvY1ZWNDVhSDVJZFdxS1kxY3BnTXBHbVpoUng2RFNRMDJoCkNDL0doN1dlWXBFM1JpNSs2NnhhWEJQcjFDK3lvbnMrbDB5aVhLdVVwSUlGNEdmbEx3VjJiVlpqVnlaZUFXOUkKekYxUGkxQW1lZzVWaXRGZ3N3S3ZRb3grTVNXN3JBbm5VazhyZldSellORUc2T1JPL1Q2WmYweUVVd2RYbjVIZwpIdkZpMjFTYjRIRDE5MFl2TStvQnlsWUlVbldHbTNNSGxyYXJUWFBJdUQwbDJOZ1pQcTd3d1p0bGFlWU9ZcnRqCnZxV3p2UFE4bTRnMkFlN1l3ZGVRZE8xR0REQ1diM1o3V3h0MlducElXZUFkU3preVE1cXlPRGl1V2JaU0N3bCsKZDQxOEl6VzYyQ2lja2NJT3pPTmI1WkNKLytmYmNDWkZ2Uk9MbW92THlTR2NtQk4rUUhiMDdoRkozUnkxVHdHOQp6S29za2VEcENOM0pURnNjYm9oWDdPZ0lwMnU3bEd4cGZwYVlSWE5XZy9HYXNOOVRpcTFrR1p1OVhzQzQrNWQ1CmdwWGEzaGJKU0JrYjJHL1M5TktjNUlsUTBFcnRNVjV4cjFmNHZqczNCWDBiR21CanA1QS9BSE4vOVJBejF4eU8KZUh3MlA1WFBWeDlhaWdmM2VGRjVaUT09Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
@@ -62,7 +63,8 @@ jobs:
                   command: gke-gcloud-auth-plugin
                   installHint: Install gke-gcloud-auth-plugin for use with kubectl by following
                     https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl#install_plugin
-                  provideClusterInfo: true" | tee -a ~/.kube/config > /dev/null
+                  provideClusterInfo: true
+          EOF
 
           export HTTPS_PROXY=35.246.41.60:8888
           export HTTP_PROXY=35.246.41.60:8888
