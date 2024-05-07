@@ -18,7 +18,10 @@ jobs:
 
       - name: Install Gcloud CLI, Helm, Kubectl
         run: | 
-          sudo apt-get update
+          echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+          sudo apt-get update && sudo apt-get install google-cloud-cli
+
+
           #curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-474.0.0-linux-x86_64.tar.gz
           #tar -xf google-cloud-cli-474.0.0-linux-x86_64.tar.gz
           #./google-cloud-sdk/install.sh --quiet
