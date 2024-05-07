@@ -19,18 +19,18 @@ jobs:
       - name: Install Gcloud CLI, Helm, Kubectl
         run: | 
           sudo apt-get update
-          curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-474.0.0-linux-x86_64.tar.gz
-          tar -xf google-cloud-cli-474.0.0-linux-x86_64.tar.gz
-          ./google-cloud-sdk/install.sh --quiet
+          #curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-474.0.0-linux-x86_64.tar.gz
+          #tar -xf google-cloud-cli-474.0.0-linux-x86_64.tar.gz
+          #./google-cloud-sdk/install.sh --quiet
 
           curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
           sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 
-          curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
-          chmod 700 get_helm.sh
-          ./get_helm.sh
+          #curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+          #chmod 700 get_helm.sh
+          #./get_helm.sh
 
-          gcloud components install gke-gcloud-auth-plugin
+          sudo apt-get install google-cloud-cli-gke-gcloud-auth-plugin
 
 
       - name: Set the Remote proxy to access GKE cluster
