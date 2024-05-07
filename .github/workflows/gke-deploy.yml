@@ -39,7 +39,7 @@ jobs:
 
       - name: Set the Remote proxy to access GKE cluster
         run: |
-          sudo touch ~/.kube/config
+          touch ~/.kube/config
           echo "apiVersion: v1
             clusters:
             - cluster:
@@ -62,7 +62,7 @@ jobs:
                   command: gke-gcloud-auth-plugin
                   installHint: Install gke-gcloud-auth-plugin for use with kubectl by following
                     https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl#install_plugin
-                  provideClusterInfo: true" | sudo tee -a ~/.kube/config > /dev/null
+                  provideClusterInfo: true" | tee -a ~/.kube/config > /dev/null
 
           export HTTPS_PROXY=35.246.41.60:8888
           export HTTP_PROXY=35.246.41.60:8888
