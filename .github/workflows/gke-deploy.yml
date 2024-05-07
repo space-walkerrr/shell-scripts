@@ -39,7 +39,7 @@ jobs:
 
       - name: Set the Remote proxy to access GKE cluster
         run: |
-          touch ~/.kube/config
+          mkdir -p $HOME/.kube
           echo "apiVersion: v1
             clusters:
             - cluster:
