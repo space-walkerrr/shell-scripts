@@ -39,7 +39,6 @@ jobs:
 
       - name: Set the Remote proxy to access GKE cluster
         run: |
-          #gcloud container clusters get-credentials ismfg-scratch --region europe-west2 --project ismfg-scratch
           cat > /root/.kube/config << EOF 
             apiVersion: v1
             clusters:
