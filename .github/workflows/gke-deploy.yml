@@ -25,7 +25,7 @@ jobs:
         run: | 
           echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
           curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg
-          #sudo apt-get update && sudo apt-get install google-cloud-cli
+          sudo apt-get update && sudo apt-get install google-cloud-cli
 
 
           #curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-474.0.0-linux-x86_64.tar.gz
@@ -46,12 +46,15 @@ jobs:
         run: |
           gcloud container clusters get-credentials ismfg-scratch --region europe-west2 --project ismfg-scratch
 
-          export HTTPS_PROXY=35.246.41.60:8888
-          export HTTP_PROXY=35.246.41.60:8888
+          
 
 
       - name: Install test apache/httpd through helm
         run: |  
+
+          export HTTPS_PROXY=35.246.41.60:8888
+          export HTTP_PROXY=35.246.41.60:8888
+          
           kubectl create ns apache
           helm repo add bitnami https://charts.bitnami.com/bitnami
           helm install apache bitnami/apache --set service.type=LoadBalancer -n apache
